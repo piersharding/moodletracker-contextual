@@ -1,0 +1,73 @@
+.trackerinfo { 
+  font-size: 10pt;
+  text-align: left;
+}
+table.trackerinfo { 
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+table.trackerinfo tr { 
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+table.trackerinfo td { 
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+table.trackerinfo a { 
+    color: #0000AA;
+    text-decoration: none;
+}
+table.trackerinfo a:hover {
+    text-decoration: none;
+}
+
+
+.tablib_extension_left_selected, .tablib_extension_left_unselected {
+  height: 23px;
+  width: 6px;
+  float: left;
+}
+.tablib_extension_left_selected {
+  background-image: url(http://moodletracker.appspot.com/images/tabsel_l.gif);
+}
+.tablib_extension_left_unselected {
+  background-image: url(http://moodletracker.appspot.com/images/tabnotsel_l.gif);
+}
+.tablib_selected, .tablib_unselected {
+  font-size: 12px;
+  font-height: 23px;
+  text-transform: lowercase;
+  height: 23px;
+  line-height: 23px;
+  font-family: Verdana,Arial,sans-serif;
+  font-weight: 700;
+  margin: 0px;
+  padding: 0px;
+  padding-right: 6px;
+  width: auto;
+  border: 0px;
+  border-bottom: 1px solid #86A1C4;
+}
+.tablib_selected {
+  background: url(http://moodletracker.appspot.com/images/tabsel_r.gif) no-repeat center right;
+  color: #FFFFFF;
+}
+.tablib_unselected {
+  background: url(http://moodletracker.appspot.com/images/tabnotsel_r.gif) no-repeat center right;
+  color: #02679C;
+}
+td.tablib_unselected:hover {
+  color: #00344F;
+  text-decoration: underline;
+}
+.tablib_spacerTab, .tablib_emptyTab {
+  border-bottom: 1px solid #86A1C4;
+}
+.tablib_emptyTab {
+  width: 500px;
+}

@@ -1,0 +1,42 @@
+application: moodletracker
+version: 2
+runtime: python
+api_version: 1
+
+handlers:
+- url: /manifests
+  static_dir: manifests
+  expiration: 1m
+
+- url: /gadgets
+  static_dir: gadgets
+  expiration: 1m
+
+- url: /css
+  static_dir: css
+
+- url: /images
+  static_dir: static/images
+
+- url: /tracker/.*
+  script: tracker.py 
+
+- url: /favicon.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
+
+- url: /test_gadget2.html
+  static_files: static/test_gadget2.html
+  upload: static/test_gadget2.html
+
+- url: .*
+  script: main.py 
+
+skip_files:
+- ^(.*/)?\.git.*
+- ^(.*/)?app\.yaml
+- ^(.*/)?index\.yaml
+- ^(.*/)?.*\.py[co]
+- ^(.*/)?\..*
+- ^(.*/)?.*\.backup
+

@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Blah</title>
+</head>
+<body>
+<h1>blah</h1>
+<button>test</button>
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
+<script type = "text/javascript">
+$('button').click(
+    function() {
+        var moodle_tracker = '/tracker/MDL-22951';
+        $.getJSON(moodle_tracker, function(data, status) {
+                alert('status: ' + status + ' data: ' + data.summary);
+        });
+    }
+
+);
+</script>
+</body>
+</html>

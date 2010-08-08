@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ApplicationManifest xmlns="http://schemas.google.com/ApplicationManifest/2009">
+
+  <!-- Support info to show in the marketplace & control panel -->
+  <Support>
+    <!-- URL for application configuration, accessed from the app settings
+     page in the control panel -->
+    <Link rel="manage" href="http://moodletracker.appspot.com/moodle-tracker-info/admin?domain=${DOMAIN_NAME}" />
+
+    <!-- URL explaining how customers get support. -->
+    <Link rel="support" href="http://moodletracker.appspot.com/moodle-tracker-info/support" />
+
+    <!-- URL that is displayed to admins during the deletion process,
+     to specify policies such as data retention, how to claim accounts, etc. -->
+    <Link rel="deletion-policy" href="http://moodletracker.appspot.com/moodle-tracker-info/deletion-policy" />
+  </Support>
+
+  <!-- Name and description pulled from message bundles -->
+  <Name>Gmail Moodle Tracker details</Name>
+  <Description>Simple Moodle Tracker Info application for testing Gmail contextual gadgets</Description>
+
+  <!-- Declare our OpenID realm so our app is white listed -->
+  <Extension id="realm" type="openIdRealm">
+    <Url>http://moodletracker.appspot.com</Url>
+  </Extension>
+
+<!-- EXTRACTOR -->
+<Extension id="SubjectExtractor" type="contextExtractor">
+  <Name>Moodle Tracker Numbers in Subject</Name>
+  <Url>google.com:SubjectExtractor</Url>
+  <Param name="subject" value=".*MDL\-[0-9]+.*"/>
+  <Triggers ref="MoodleTrackerInfoGadget"/>
+  <Scope ref="emailSubject"/>
+  <Container name="mail"/>
+</Extension>
+
+<!-- GADGET -->
+<Extension id="MoodleTrackerInfoGadget" type="gadget">
+  <Name>Moodle Tracker Info contextual gadget</Name>
+  <Url>http://moodletracker.appspot.com/gadgets/moodle-tracker-info.gadget.xml</Url>
+  <Container name="mail"/>
+</Extension>
+
+<!-- SCOPE -->
+<Scope id="emailSubject">
+  <Url>tag:google.com,2010:auth/contextual/extractor/SUBJECT</Url>
+  <Reason>This application looks at the subject of each email looking for Moodle Tracker numbers of the format MDL-9....</Reason>
+</Scope>
+
+</ApplicationManifest>
+

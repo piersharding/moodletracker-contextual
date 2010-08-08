@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Moodle Tracker"
+    description="Moodle Tracker Details"
+    height="75"
+    author="Piers Harding"
+    author_email="piers@ompka.net"
+    author_location="Virtualy here">
+
+    <!-- Declare feature dependencies. -->
+
+    <!-- This one is not specific to Gmail contextual gadgets. -->
+    <Require feature="dynamic-height"/>
+
+    <Require feature="tabs"/>
+
+    <Require feature="setprefs"/>
+
+    <UserPref name="selectedTab" datatype="hidden"/>
+
+    <!-- The next feature, Caja, is optional, and is supported for
+     use only within test domains. Uncomment the tag only for
+     non-production gadgets. -->
+    <!-- <Require feature="caja"/> -->
+
+    <!-- The next feature, google.contentmatch, is required for all
+     Gmail contextual gadgets.
+     <Param> - specify one or more comma-separated extractor IDs in
+     a param named "extractors". This line is overridden by the extractor ID
+     in the manifest, but is still expected to be present. -->
+    <Require feature="google.contentmatch">
+      <Param name="extractors">
+        google.com:SubjectExtractor
+      </Param>
+    </Require>
+  </ModulePrefs>
+
+  <!-- Define the content type and display location. The settings
+   "html" and "card" are required for all Gmail contextual gadgets. -->
+  <Content type="html" view="card">
+    <![CDATA[
+      <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
+      <script type="text/javascript">
+	    // Initialize tabs, designate the tab named "One" as
+	    // the tab selected by default.
+	    var tabs = new gadgets.TabSet(__MODULE_ID__, "Overview");
+	    tabs.alignTabs("left", 10);
+	
+	    function initMoodleTracker() {
+	        // Expect subject as first element keyed by 'subject'
+	        matches = google.contentmatch.getContentMatches();
+	        var subject = matches[0]['subject'];
+	
+	        // Only do something if we actually have a subject to work with
+	        if (subject) {
+	          // Pick out the Tracker numbers (MDL-99999) and process them
+	          var trackers = subject.match(/MDL\-[0-9]+/g);
+	          if (trackers) {
+	            $('head').append('<link rel="stylesheet" href="http://moodletracker.appspot.com/css/moodle-tracker-info.css" />');
+	            for (var i = 0; i < trackers.length; i++) {
+	              var moodle_tracker = 'http://moodletracker.appspot.com/tracker/' + trackers[i];
+	              $.getJSON(moodle_tracker, function(data) {
+	                    var overview = tabs.addTab("Overview", {            
+                           contentContainer: document.getElementById("tracker_overview"),
+	                       tooltip: "Basic Details"          
+	                    });
+	                    var mt_title = '<table class="trackerinfo"><tr><td><a href="' + data.link + '" target=_blank">' + data.title  + '</a></td></tr>' +
+	                                   '<tr><td>Version: ' + data.version + '</td></tr>' +
+	                                   '<tr><td>Component: ' + data.component + '</td></tr>' +
+	                                   '<tr><td>Priority: ' + data.priority + '</td></tr>' +
+	                                   '<tr><td>Status: ' + data.status + '</td></tr></table>';
+	                    document.getElementById(overview).innerHTML = mt_title;
+	                    var summary = tabs.addTab("Summary", {            
+                           contentContainer: document.getElementById("tracker_summary"),
+	                       tooltip: "Summary"          
+	                    });
+	                    var mt_summary = '<table class="trackerinfo"><tr><td>' + data.summary + '</td></tr></table>';
+	                    document.getElementById(summary).innerHTML = mt_summary;
+	                    var history = tabs.addTab("History", {            
+                           contentContainer: document.getElementById("tracker_history"),
+	                       tooltip: "History"          
+	                    });
+	                    var mt_history = '<table class="trackerinfo">' + 
+	                                     '<tr><td>Version: ' + data.version + '</td></tr>' + 
+	                                     '<tr><td>Component: ' + data.component + '</td></tr>' +
+	                                     '<tr><td>Priority: ' + data.priority + '</td></tr>' +
+	                                     '<tr><td>Reporter: ' + data.reporter + '</td></tr>' +
+	                                     '<tr><td>Created: ' + data.created + '</td></tr>' +
+	                                     '<tr><td>Updated: ' + data.updated + '</td></tr>' +
+	                                     '<tr><td>Resolution: ' + data.resolution + '</td></tr></table>';
+	                    document.getElementById(history).innerHTML = mt_history;
+	              });
+	            }
+	            gadgets.window.adjustHeight(200);
+	          }
+	        }
+	    }
+	
+	    // Call init function to initialize and display tabs.
+	    gadgets.util.registerOnLoadHandler(initMoodleTracker);
+      </script>
+
+      <div id="tracker_overview">Basic details - loading...</div>
+      <div id="tracker_summary"></div>
+      <div id="tracker_history"></div>
+    ]]>
+  </Content>
+</Module>
+
