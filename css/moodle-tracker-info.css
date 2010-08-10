@@ -2,26 +2,39 @@
   font-size: 10pt;
   text-align: left;
 }
+
 table.trackerinfo { 
   border: 0px;
   padding: 0px;
   margin: 0px;
 }
+
 table.trackerinfo tr { 
   border: 0px;
   padding: 0px;
   margin: 0px;
 }
+
 table.trackerinfo td { 
   border: 0px;
   padding: 0px;
   margin: 0px;
 }
 
+td.ti-title {
+    font-weight: bold;
+    width: 10%;
+}
+
+td.ti-element {
+    width: 90%;
+}
+
 table.trackerinfo a { 
     color: #0000AA;
     text-decoration: none;
 }
+
 table.trackerinfo a:hover {
     text-decoration: none;
 }
