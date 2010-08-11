@@ -65,26 +65,40 @@
 	                       tooltip: "Basic Details"          
 	                    });
 	                    var mt_title = '<table class="trackerinfo"><tr><td colspan="2" class="ti-element"><a href="' + data.link + '" target=_blank">' + data.title  + '</a></td></tr>' +
+	                                   '<tr><td class="ti-title">Type:</td><td class="ti-element"> ' + data.type + '</td></tr>' +
+	                                   '<tr><td class="ti-title">Status:</td><td class="ti-element"> ' + data.status + '</td></tr>' +
+	                                   '<tr><td class="ti-title">Asignee:</td><td class="ti-element"> ' + data.assignee + '</td></tr>' +
+	                                   '<tr><td class="ti-title">Priority:</td><td class="ti-element"> ' + data.priority + '</td></tr>' +
 	                                   '<tr><td class="ti-title">Version:</td><td class="ti-element"> ' + data.version + '</td></tr>' +
 	                                   '<tr><td class="ti-title">Component:</td><td class="ti-element"> ' + data.component + '</td></tr>' +
-	                                   '<tr><td class="ti-title">Priority:</td><td class="ti-element"> ' + data.priority + '</td></tr>' +
-	                                   '<tr><td class="ti-title">Status:</td><td class="ti-element"> ' + data.status + '</td></tr></table>';
+	                                   '<tr><td class="ti-title">Votes:</td><td class="ti-element"> ' + data.votes + '</td></tr>' +
+	                                   '</table>';
 	                    document.getElementById(overview).innerHTML = mt_title;
+
 	                    var summary = tabs.addTab("Summary", {            
                            contentContainer: document.getElementById("tracker_summary"),
 	                       tooltip: "Summary"          
 	                    });
 	                    var mt_summary = '<table class="trackerinfo"><tr><td class="ti-element">' + data.summary + '</td></tr></table>';
 	                    document.getElementById(summary).innerHTML = mt_summary;
+
+	                    var comment = tabs.addTab("Last Comment", {            
+                           contentContainer: document.getElementById("tracker_comment"),
+	                       tooltip: "Last Comment"          
+	                    });
+	                    var mt_comment = '<table class="trackerinfo"><tr><td class="ti-element">' + data.comment + '</td></tr></table>';
+	                    document.getElementById(comment).innerHTML = mt_comment;
+
 	                    var history = tabs.addTab("History", {            
                            contentContainer: document.getElementById("tracker_history"),
 	                       tooltip: "History"          
 	                    });
 	                    var mt_history = '<table class="trackerinfo">' + 
-	                                     '<tr><td class="ti-title">Version:</td><td class="ti-element"> ' + data.version + '</td></tr>' + 
-	                                     '<tr><td class="ti-title">Component:</td><td class="ti-element"> ' + data.component + '</td></tr>' +
+	                                     '<tr><td class="ti-title">Type:</td><td class="ti-element"> ' + data.type + '</td></tr>' +
+	                                     '<tr><td class="ti-title">Status:</td><td class="ti-element"> ' + data.status + '</td></tr>' +
 	                                     '<tr><td class="ti-title">Priority:</td><td class="ti-element"> ' + data.priority + '</td></tr>' +
 	                                     '<tr><td class="ti-title">Reporter:</td><td class="ti-element"> ' + data.reporter + '</td></tr>' +
+	                                     '<tr><td class="ti-title">Asignee:</td><td class="ti-element"> ' + data.assignee + '</td></tr>' +
 	                                     '<tr><td class="ti-title">Created:</td><td class="ti-element"> ' + data.created + '</td></tr>' +
 	                                     '<tr><td class="ti-title">Updated:</td><td class="ti-element"> ' + data.updated + '</td></tr>' +
 	                                     '<tr><td class="ti-title">Resolution:</td><td class="ti-element"> ' + data.resolution + '</td></tr></table>';
@@ -103,6 +117,7 @@
 
       <div id="tracker_overview">Basic details - loading...</div>
       <div id="tracker_summary"></div>
+      <div id="tracker_comment"></div>
       <div id="tracker_history"></div>
     ]]>
   </Content>
