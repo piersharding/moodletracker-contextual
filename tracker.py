@@ -31,7 +31,7 @@ class TrackerHandler(webapp.RequestHandler):
     if dom != None:
        if dom.has_key('items'):
             d = dom['items'][0]
-            for i in ('title', 'summary', 'link', 'status', 'version', 'component',
+            for i in ('title', 'summary', 'link', 'status', 'version', 'component', 'key',
                        'created', 'type', 'votes', 'assignee', 'comment', 'updated', 'resolution', 'priority', 'reporter'):
                 data[i] = d[i].replace('"', '&quot;').replace("\n", '')
     

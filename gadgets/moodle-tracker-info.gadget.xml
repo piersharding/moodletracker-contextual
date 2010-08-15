@@ -41,10 +41,6 @@
     <![CDATA[
       <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
       <script type="text/javascript">
-	    // Initialize tabs, designate the tab named "One" as
-	    // the tab selected by default.
-	    var tabs = new gadgets.TabSet(__MODULE_ID__, "Overview");
-	    tabs.alignTabs("left", 10);
 	
 	    function initMoodleTracker() {
 	        // Expect subject as first element keyed by 'subject'
@@ -56,13 +52,36 @@
 	          // Pick out the Tracker numbers (MDL-99999) and process them
 	          var trackers = subject.match(/MDL\-[0-9]+/g);
 	          if (trackers) {
+                // Initialize tabs, designate the tab named "Overview" as
+           	    // the tab selected by default.
+          	    var tabs = new gadgets.TabSet(__MODULE_ID__, "Overview");
+           	    tabs.alignTabs("left", 10);
 	            $('head').append('<link rel="stylesheet" href="http://moodletracker.appspot.com/css/moodle-tracker-info.css" />');
+                var el_container = document.getElementById("tracker-container")
 	            for (var i = 0; i < trackers.length; i++) {
+                  // build holding containers first
+                  var el = document.createElement('div');
+                  el.setAttribute('id','tracker_overview'+i);
+                  //el.innerHTML = 'Basic details - loading...';
+                  el_container.appendChild(el)
+                  var el = document.createElement('div');
+                  el.setAttribute('id','tracker_summary'+i);
+                  el_container.appendChild(el)
+                  var el = document.createElement('div');
+                  el.setAttribute('id','tracker_comment'+i);
+                  el_container.appendChild(el)
+                  var el = document.createElement('div');
+                  el.setAttribute('id','tracker_history'+i);
+                  el_container.appendChild(el)
 	              var moodle_tracker = 'http://moodletracker.appspot.com/tracker/' + trackers[i];
 	              $.getJSON(moodle_tracker, function(data) {
-	                    var overview = tabs.addTab("Overview", {            
-                           contentContainer: document.getElementById("tracker_overview"),
-	                       tooltip: "Basic Details"          
+                        var title = "Overview ";
+                        if (trackers.length > 1) {
+                            title = title + data.key;
+                        }
+	                    var overview = tabs.addTab(title, {            
+                           contentContainer: document.getElementById("tracker_overview"+i),
+	                       tooltip: "Basic Details " + data.key
 	                    });
 	                    var mt_title = '<table class="trackerinfo"><tr><td colspan="2" class="ti-element"><a href="' + data.link + '" target=_blank">' + data.title  + '</a></td></tr>' +
 	                                   '<tr><td class="ti-title">Type:</td><td class="ti-element"> ' + data.type + '</td></tr>' +
@@ -76,22 +95,22 @@
 	                    document.getElementById(overview).innerHTML = mt_title;
 
 	                    var summary = tabs.addTab("Summary", {            
-                           contentContainer: document.getElementById("tracker_summary"),
-	                       tooltip: "Summary"          
+                           contentContainer: document.getElementById("tracker_summary"+i),
+	                       tooltip: "Summary " + data.key
 	                    });
 	                    var mt_summary = '<table class="trackerinfo"><tr><td class="ti-element">' + data.summary + '</td></tr></table>';
 	                    document.getElementById(summary).innerHTML = mt_summary;
 
 	                    var comment = tabs.addTab("Last Comment", {            
-                           contentContainer: document.getElementById("tracker_comment"),
-	                       tooltip: "Last Comment"          
+                           contentContainer: document.getElementById("tracker_comment"+i),
+	                       tooltip: "Last Comment " + data.key
 	                    });
 	                    var mt_comment = '<table class="trackerinfo"><tr><td class="ti-element">' + data.comment + '</td></tr></table>';
 	                    document.getElementById(comment).innerHTML = mt_comment;
 
 	                    var history = tabs.addTab("History", {            
-                           contentContainer: document.getElementById("tracker_history"),
-	                       tooltip: "History"          
+                           contentContainer: document.getElementById("tracker_history"+i),
+	                       tooltip: "History " + data.key
 	                    });
 	                    var mt_history = '<table class="trackerinfo">' + 
 	                                     '<tr><td class="ti-title">Type:</td><td class="ti-element"> ' + data.type + '</td></tr>' +
@@ -106,7 +125,7 @@
                         tabs.setSelectedTab(0);
 	              });
 	            }
-	            gadgets.window.adjustHeight(200);
+	            gadgets.window.adjustHeight(225);
 	          }
 	        }
 	    }
@@ -115,10 +134,7 @@
 	    gadgets.util.registerOnLoadHandler(initMoodleTracker);
       </script>
 
-      <div id="tracker_overview">Basic details - loading...</div>
-      <div id="tracker_summary"></div>
-      <div id="tracker_comment"></div>
-      <div id="tracker_history"></div>
+      <div id="tracker-container"></div>
     ]]>
   </Content>
 </Module>

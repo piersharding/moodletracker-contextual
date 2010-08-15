@@ -52,6 +52,7 @@ table.trackerinfo a:hover {
   background-image: url(http://moodletracker.appspot.com/images/tabnotsel_l.gif);
 }
 .tablib_selected, .tablib_unselected {
+  white-space: nowrap;
   font-size: 12px;
   font-height: 23px;
   text-transform: lowercase;
