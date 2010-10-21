@@ -18,16 +18,16 @@ handlers:
 - url: /images
   static_dir: static/images
 
-- url: /tracker/.*
-  script: tracker.py 
-
 - url: /favicon.ico
   static_files: static/images/favicon.ico
   upload: static/images/favicon.ico
 
-- url: /test_gadget2.html
-  static_files: static/test_gadget2.html
-  upload: static/test_gadget2.html
+- url: /test_gadget.html
+  static_files: static/test_gadget.html
+  upload: static/test_gadget.html
+
+- url: /tracker/.*
+  script: tracker.py 
 
 - url: .*
   script: main.py 

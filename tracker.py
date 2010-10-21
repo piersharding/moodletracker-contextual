@@ -3,6 +3,7 @@ from google.appengine.ext.webapp import util
 from google.appengine.api import urlfetch
 import feedparser
 from django.utils import simplejson
+import re
 
 # an issue URL looks like  http://tracker.moodle.org/si/jira.issueviews:issue-xml/MDL-22951/MDL-22951.xml
 MOODLE_TRACKER = 'http://tracker.moodle.org/si/jira.issueviews:issue-xml/'
@@ -33,7 +34,9 @@ class TrackerHandler(webapp.RequestHandler):
             d = dom['items'][0]
             for i in ('title', 'summary', 'link', 'status', 'version', 'component', 'key',
                        'created', 'type', 'votes', 'assignee', 'comment', 'updated', 'resolution', 'priority', 'reporter'):
-                data[i] = d[i].replace('"', '&quot;').replace("\n", '')
+                data[i] = d[i].replace('\\', '/').replace('"', '&quot;').replace("\n", '')
+                data[i] = re.sub(r"[^\w\d\s\.\!\@\&\;\#\$\%\^\*\(\)\-\_\+\=\{\}\[\]\:\'\,\<\>\?\/]+", '', data[i])
+                data[i] = re.sub(r"\s", ' ', data[i])
     
     els = []
     for i in data:

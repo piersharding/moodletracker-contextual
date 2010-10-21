@@ -3,8 +3,7 @@
 
   <!-- Support info to show in the marketplace & control panel -->
   <Support>
-    <!-- URL for application configuration, accessed from the app settings
-     page in the control panel -->
+    <!-- URL for application configuration, accessed from the app settings page in the control panel -->
     <Link rel="manage" href="http://moodletracker.appspot.com/moodle-tracker-info/admin?domain=${DOMAIN_NAME}" />
 
     <!-- URL explaining how customers get support. -->
@@ -17,7 +16,7 @@
 
   <!-- Name and description pulled from message bundles -->
   <Name>Gmail Moodle Tracker details</Name>
-  <Description>Simple Moodle Tracker Info application for testing Gmail contextual gadgets</Description>
+  <Description>Simple Moodle Tracker Info application for demonstrating Gmail contextual gadgets</Description>
 
   <!-- Declare our OpenID realm so our app is white listed -->
   <Extension id="realm" type="openIdRealm">
